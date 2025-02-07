@@ -52,16 +52,19 @@ namespace COMP003A.CodingAssignment4
                 return;
             }
             Console.Write("\nEnter product name: ");
-            string newproductName = Console.ReadLine();
+            string productName = Console.ReadLine();
             Console.Write("Enter product quantity: ");
-            if (!int.TryParse(Console.ReadLine(), out int newproductQuantity))
+            int productQuantity = int.Parse(Console.ReadLine());
+            try
             {
-                Console.WriteLine("Invalid input. Please enter a valid quantity.");
-                return;
+                productNames.Add(productName);
+                productQuantities.Add(productQuantity);
+                Console.WriteLine("Product added succesfully!");
             }
-            productNames.Add(newproductName);
-            productQuantities.Add(newproductQuantity);
-            Console.WriteLine("Product added successfully.");
+            catch (Exception)
+            {
+                Console.WriteLine("Invalid Input, Please try again.");
+            }
         }
         static void UpdateProduct()
         {
@@ -70,22 +73,24 @@ namespace COMP003A.CodingAssignment4
             int index = productNames.IndexOf(productName);
             if (index != -1)
             {
-                Console.Write("Enter the new quantity: ");
-                if (int.TryParse(Console.ReadLine(), out int newproductQuantity))
+                Console.Write("Enter new quantity: ");
+                try
                 {
-                    productQuantities[index] = newproductQuantity;
-                    Console.WriteLine("Quantity updated successfully.");
+                    int productQuanity = int.Parse(Console.ReadLine());
+                    productQuantities[index] = productQuanity;
+                    Console.WriteLine("Product succesfully updated!");
                 }
-                else
+                catch (Exception)
                 {
-                    Console.WriteLine("Invalid input. Please enter a valid quantity.");
+                    Console.WriteLine("Invalid input. Please enter a valid number");
                 }
             }
             else
             {
-                Console.WriteLine("Product not found. Please try again.");
+                Console.WriteLine("\nProduct not found.");
             }
         }
+
         static void ViewProduct()
         {
             Console.WriteLine("Inventory Summary:");
